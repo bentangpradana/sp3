@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: landing-page-production
+  namespace: landing-page-production 
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      name: landing-page-production
+  template:
+    metadata:
+      labels:
+        name: landing-page-production
+    spec:
+      containers:
+      - name: landing-page-production
+        image: benja123/sp3-landingpage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: landing-page-production
+  namespace: landing-page-production
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+  selector:
+    name: landing-page-production
